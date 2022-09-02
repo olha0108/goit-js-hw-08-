@@ -13,7 +13,7 @@ if (localStorage.getItem(LOCALSTORAGE_KEY)) {
   const localStorageParseData = JSON.parse(
     localStorage.getItem(LOCALSTORAGE_KEY)
   );
-  for (key of Object.keys(localStorageParseData)) {
+  for (const key of Object.keys(localStorageParseData)) {
     formData[key] = localStorageParseData[key];
     formFields[key].value = localStorageParseData[key];
   }
