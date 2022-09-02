@@ -14,8 +14,8 @@ if (localStorage.getItem(LOCALSTORAGE_KEY)) {
     localStorage.getItem(LOCALSTORAGE_KEY)
   );
   for (key of Object.keys(localStorageParseData)) {
-    const formData[key] = localStorageParseData[key];
-    const formFields[key].value = localStorageParseData[key];
+    formData[key] = localStorageParseData[key];
+    formFields[key].value = localStorageParseData[key];
   }
 }
 
