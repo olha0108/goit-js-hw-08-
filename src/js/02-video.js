@@ -7,9 +7,6 @@ const iframe = document.querySelector('iframe');
 const player = new Player(iframe);
 
 // Разбери документацию метода (Methods on(event: string, callback: function): void)
-player.on('play', function () {
-  console.log('played the video!');
-});
 
 // Сохраняй время воспроизведения в локальное хранилище. Пусть ключом для хранилища будет строка "videoplayer-current-time".
 const onPlay = function (data) {
@@ -23,5 +20,6 @@ player.on('timeupdate', throttle(onPlay, 1000));
 
 // При перезагрузке страницы воспользуйся методом setCurrentTime() для того чтобы возобновить воспроизведение с сохраненной позиции. (setCurrentTime(seconds: number): Promise<number, (RangeError|Error)>)
 
-player.setCurrentTime(localStorage.getItem('videoplayer-current-time'));
+const currentTime = JSON.parse(localStorage.getItem('videoplayer-current-time')) || 0;
+player.setCurrentTime(currentTime);
 

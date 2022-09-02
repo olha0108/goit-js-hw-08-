@@ -1,17 +1,25 @@
 // Описан в документации
-import SimpleLightbox from 'simplelightbox';
+import SimpleLightbox from "simplelightbox";
 // Дополнительный импорт стилей
 import 'simplelightbox/dist/simple-lightbox.min.css';
 // Add imports above this line
 import { galleryItems } from './gallery-items';
 // Change code below this line
 
+const galleryboxConfig = {
+  captions: true,
+  captionType: 'attr',
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+};
+
 const galleryOfImages = document.querySelector('.gallery');
 
 const gallerys = galleryItems
   .map(
-    ({ preview, original, description }) => `<div class="gallery__item">
-  <a class="gallery__link" href="${original}">
+    ({ preview, original, description }) => `
+  <a class="gallery__item" href="${original}">
     <img
       class="gallery__image"
       src="${preview}"
@@ -19,35 +27,15 @@ const gallerys = galleryItems
       alt="${description}"
     />
   </a>
-</div>`
+`
   )
   .join('');
 
 galleryOfImages.insertAdjacentHTML('beforeend', gallerys);
-new SimpleLightbox('.gallery a');
+const galleryBox = new SimpleLightbox('.gallery a', galleryboxConfig);
 
-galleryOfImages.addEventListener('click', openOriginalImage);
+galleryBox.on('show.simplelightbox');
 
-function openOriginalImage(e) {
-  noOpenModal(e);
-  if (e.target.nodeName !== 'IMG') {
-    return;
-  }
-  function noOpenModal(e) {
-    e.preventDefault();
-  }
-
-  const instance = basicLightbox.create(
-    `<img src='${e.target.dataset.source}' width="800" height="600">
-`,
-    {
-      onShow: instance => {
-        if (e.code === 'Escape') {
-          instance.close();
-        }
-        instance.element().querySelector('img').onclick = instance.close;
-      },
-    }
-  );
-  instance.show();
+function noOpenModal(e) {
+  e.preventDefault();
 }
