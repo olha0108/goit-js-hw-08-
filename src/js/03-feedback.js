@@ -32,6 +32,6 @@ function onSubmitForm(evt) {
   evt.preventDefault();
   form.reset();
   localStorage.removeItem(LOCALSTORAGE_KEY);
-  delete formFields.email;
-  delete formFields.message;
+  delete formData.email;
+  delete formData.message;
 }
